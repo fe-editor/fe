@@ -1,0 +1,17 @@
+# This sets the `.gitignore` to be a *whitelist* by default.
+**/**
+!*/
+
+
+# Whitelist
+!*.md
+!LICENSE
+!.gitignore
+!.github/**/*.yml
+
+!*.zig
+
+
+# Blacklist (overrides Whitelist)
+/zig-cache
+/zig-out
