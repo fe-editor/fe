@@ -44,4 +44,17 @@ pub fn build(b: *std.Build) void {
     // This will evaluate the `test` step rather than the default, which is "install".
     const test_step = b.step("test", "Run library tests");
     test_step.dependOn(&run_fe_tests.step);
+
+    const fe_benchmarks = b.addExecutable(.{
+        .name = "bench",
+        // In this case the main source file is merely a path, however, in more
+        // complicated build scripts, this could be a generated file.
+        .root_source_file = .{ .path = "bench/main.zig" },
+        .target = target,
+        .optimize = optimize,
+    });
+
+    const run_fe_benchmarks = b.addRunArtifact(fe_benchmarks);
+    const bench_step = b.step("bench", "Run library benchmarks");
+    bench_step.dependOn(&run_fe_benchmarks.step);
 }
